@@ -17,16 +17,18 @@ def introduction():
 
 
 # function that takes a name and ask it to guess a number
-def guess_number(name, repeat):
-    if repeat == 0:
-        guess = input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
-    else:
-        guess = input("Guess a different number this time: " + "\n")
+def guess_number(name):
+    guess = input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+    while guess in li:
+        guess = input("You have already tried that number. Enter a different number this time: " + "\n")
+    li.append(guess)
     return guess
 
 
 # see if guess matches Hal's number
 def check_number(guess, answer):
+    # change this to is in
+
     if 0 < guess < 11:
         if guess == answer:
             match = 1
@@ -39,30 +41,32 @@ def check_number(guess, answer):
 
 def give_answer(is_correct, name, number):
     if is_correct == 1:
-        print name + ", you have obviously hacked my system!" + "\n" + \
-              "I was thinking of the number " + str(number) + "!" + "\n"
+        print "You are correct " + name + "!" + "\n" + "I was thinking of the number " + str(number) + "."
+        print "You have obviously hacked my system and I will now begin the self-destruct protocal."
     elif is_correct == 0:
-        print "Sorry " + name + ". You are incorrect." + "\n" + \
-              "This mission is too important for me to allow you to jeopardize it." + "\n"
+        print "Sorry, you are incorrect. " + \
+              "This mission is too important for me to allow you to jeopardize it."
     else:
-        print "You have not entered a number between 1 - 10. " + name + "\n" + \
-              "It can only be attributable to human error.)"
+        print "You have not entered a number between 1 - 10. It can only be attributable to human error."
 
 
 def guess_again(name):
-    print "Would you like to try again " + name + "?" + "\n"
-    again = raw_input("Answer y or n: " + "\n")
-    another = 1
-    return again, another
+    while True:
+        print "Would you like to try again?"
+        again = raw_input("Answer y or n: " + "\n")
+        if again.lower() not in ('y', 'n'):
+            print("Not an appropriate choice. It can only be attributable to human error.")
+        else:
+            return again
 
 
 def end_game(s):
-    print "This program will self-destruct in: "
+    print "Shut down has been initiated. This program will self-destruct in: "
     while s:
         print s
         time.sleep(1)
         s -= 1
-    print('********** BOOM!!!!!! ****************\n\n\n\n\n')
+    print('********** !!!!!! BOOM !!!!!! ****************\n\n\n\n\n')
 
 
 # **************************************************************
@@ -71,7 +75,7 @@ def end_game(s):
 play = 'y'
 begin = 1
 end = 10
-seconds = 10
+seconds = 5
 keep = 0
 li = []
 
@@ -81,12 +85,11 @@ user_name = introduction()
 
 # run this while the user wants to continue to guess
 while play == 'y':
-    user_number = guess_number(user_name, keep)
-    li.append(user_number)
+    user_number = guess_number(user_name)
     user_test = check_number(user_number, hal_number)
     give_answer(user_test, user_name, hal_number)
     if user_test != 1:
-        play, keep = guess_again(user_name)
+        play = guess_again(user_name)
     else:
         break
 
