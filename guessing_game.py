@@ -1,6 +1,13 @@
-# imports
+# **************************************************************
+# IMPORT MODULES
+# **************************************************************
 import random
 import time
+
+
+# **************************************************************
+# FUNCTIONS
+# **************************************************************
 
 
 # function to generate a random number between 1 and 10
@@ -17,7 +24,7 @@ def introduction():
 
 
 # function that takes a name and ask it to guess a number
-def guess_number(name):
+def guess_number():
     guess = input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
     while guess in li:
         guess = input("You have already tried that number. Enter a different number this time: " + "\n")
@@ -28,14 +35,13 @@ def guess_number(name):
 # see if guess matches Hal's number
 def check_number(guess, answer):
     # change this to is in
-
-    if 0 < guess < 11:
+    if guess in r:
         if guess == answer:
             match = 1
         else:
             match = 0
     else:
-        match = 2
+        match = 99
     return match
 
 
@@ -50,14 +56,13 @@ def give_answer(is_correct, name, number):
         print "You have not entered a number between 1 - 10. It can only be attributable to human error."
 
 
-def guess_again(name):
-    while True:
-        print "Would you like to try again?"
-        again = raw_input("Answer y or n: " + "\n")
-        if again.lower() not in ('y', 'n'):
-            print("Not an appropriate choice. It can only be attributable to human error.")
-        else:
-            return again
+def guess_again():
+    print "Would you like to try again?"
+    again = raw_input("Answer y or n: " + "\n")
+    if again.lower() not in ('y', 'n'):
+        print("Not an appropriate choice. It can only be attributable to human error.")
+    else:
+        return again
 
 
 def end_game(s):
@@ -70,26 +75,36 @@ def end_game(s):
 
 
 # **************************************************************
+# GLOBAL SCOPE VARIABLES
+# **************************************************************
 
-# global scope variables
+# flag for user continuing to guess
 play = 'y'
+
+#
 begin = 1
-end = 10
+end = 11  # number to include in range + 1
 seconds = 5
 keep = 0
 li = []
+r = range(begin, end)
+
 
 # only run these functions once and store outbput in global scope variables
 hal_number = generate_number(begin, end)
 user_name = introduction()
 
+# **************************************************************
+# MAIN
+# **************************************************************
+
 # run this while the user wants to continue to guess
 while play == 'y':
-    user_number = guess_number(user_name)
+    user_number = guess_number()
     user_test = check_number(user_number, hal_number)
     give_answer(user_test, user_name, hal_number)
     if user_test != 1:
-        play = guess_again(user_name)
+        play = guess_again()
     else:
         break
 
