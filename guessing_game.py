@@ -25,9 +25,17 @@ def introduction():
 
 # function that takes a name and ask it to guess a number
 def guess_number():
-    guess = input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+    while True:
+        try:
+            guess = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+            guess = int(guess)
+            break
+        except ValueError:
+            print "Only numeric values are valid. It can only be attributable to human error. Try again." + "\n"
     while guess in li:
-        guess = input("You have already tried that number. Enter a different number this time: " + "\n")
+        guess = raw_input("You have already tried that number. It can only be attributable to human error. Enter a different number this time:" + "\n")
+    while guess not in r:
+        guess = raw_input("You have not entered a number between 1 - 10. It can only be attributable to human error. Try again:" + "\n")
     li.append(guess)
     return guess
 
@@ -35,34 +43,31 @@ def guess_number():
 # see if guess matches Hal's number
 def check_number(guess, answer):
     # change this to is in
-    if guess in r:
-        if guess == answer:
-            match = 1
-        else:
-            match = 0
+    # if guess in r:
+    if guess == answer:
+        match = 1
     else:
-        match = 99
+        match = 0
+    # else:
+    #     match = 99
     return match
 
 
 def give_answer(is_correct, name, number):
     if is_correct == 1:
-        print "You are correct " + name + "!" + "\n" + "I was thinking of the number " + str(number) + "."
-        print "You have obviously hacked my system and I will now begin the self-destruct protocal."
+        print "You are correct " + name + "! I was thinking of the number " + str(number) + "."
+        print "You have obviously hacked my system and I will now begin the self-destruct protocol."
     elif is_correct == 0:
-        print "Sorry, you are incorrect. " + \
-              "This mission is too important for me to allow you to jeopardize it."
-    else:
-        print "You have not entered a number between 1 - 10. It can only be attributable to human error."
+        print "Sorry, you are incorrect. This mission is too important for me to allow you to jeopardize it. Would you like to try again?"
 
 
 def guess_again():
-    print "Would you like to try again?"
-    again = raw_input("Answer y or n: " + "\n")
-    if again.lower() not in ('y', 'n'):
-        print("Not an appropriate choice. It can only be attributable to human error.")
-    else:
-        return again
+    while True:
+        again = raw_input("Answer y or n: " + "\n")
+        if again.lower() not in ('y', 'n'):
+            print("Not an appropriate choice. It can only be attributable to human error.")
+        else:
+            return again
 
 
 def end_game(s):
