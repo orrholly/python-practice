@@ -25,17 +25,25 @@ def introduction():
 
 # function that takes a name and ask it to guess a number
 def guess_number():
-    while True:
-        try:
-            guess = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
-            guess = int(guess)
+    keep_going = True
+    while keep_going:
+        while True:
+            try:
+                guess = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+                guess = int(guess)
+            except ValueError:
+                print "Only numeric values are valid. It can only be attributable to human error. Try again." + "\n"
+                break
+            while guess in li:
+                print "You have already tried that number. It can only be attributable to human error. Enter a different number this time:" + "\n"
+                break
+                # guess = raw_input("You have already tried that number. It can only be attributable to human error. Enter a different number this time:" + "\n")
+            while guess not in r:
+                print "You have not entered a number between 1 - 10. It can only be attributable to human error. Try again:" + "\n"
+                break
+                # guess = raw_input("You have not entered a number between 1 - 10. It can only be attributable to human error. Try again:" + "\n")
+            keep_going = False
             break
-        except ValueError:
-            print "Only numeric values are valid. It can only be attributable to human error. Try again." + "\n"
-    while guess in li:
-        guess = raw_input("You have already tried that number. It can only be attributable to human error. Enter a different number this time:" + "\n")
-    while guess not in r:
-        guess = raw_input("You have not entered a number between 1 - 10. It can only be attributable to human error. Try again:" + "\n")
     li.append(guess)
     return guess
 
