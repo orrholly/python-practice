@@ -25,38 +25,40 @@ def introduction():
 
 # function that takes a name and ask it to guess a number
 def guess_number():
-    while keep == 0:
-        entered_guess = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
-        validated_number = validate_number(entered_guess)
-        range_number = in_range_number(validated_number)
-        tested_number = unique_number(range_number)
-        keep = 1
-    return tested_number
+    entered_guest = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+    int_number = convert_to_number(entered_guest)
+    range_number = in_range_number(int_number)
+    final_number = unique_number(range_number)
+    return final_number
 
 
-def validate_number(validate_guess):
-    while True:
+def convert_to_number(validate_guess):
+    result = None
+    int_converted = validate_guess
+    while result is None:
         try:
-            validate_guess = int(validate_guess)
+            int_converted = int(int_converted)
+            result = int_converted
         except ValueError:
-            print "Only numeric values are valid. It can only be attributable to human error. Try again." + "\n"
-            guess_number()
-        return validate_guess
+            int_converted = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+    return int_converted
 
 
 def in_range_number(in_range_guess):
-    while in_range_guess not in r:
+    if in_range_guess not in r:
         print "You have not entered a number between 1 - 10. It can only be attributable to human error. Try again:" + "\n"
         guess_number()
-    return in_range_guess
+    else:
+        return in_range_guess
 
 
 def unique_number(unique_guess):
-    while unique_guess in li:
+    if unique_guess in li:
         print "You have already tried that number. It can only be attributable to human error. Enter a different number this time:" + "\n"
         guess_number()
-    li.append(unique_guess)
-    return unique_guess
+    else:
+        li.append(unique_guess)
+        return unique_guess
 
 
 # see if guess matches Hal's number
@@ -111,6 +113,7 @@ seconds = 5
 keep = 0
 li = []
 r = range(begin, end)
+
 
 # only run these functions once and store outbput in global scope variables
 hal_number = generate_number(begin, end)
