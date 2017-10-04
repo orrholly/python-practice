@@ -40,13 +40,13 @@ def convert_to_number(validate_guess):
             int_converted = int(int_converted)
             result = int_converted
         except ValueError:
-            int_converted = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+            int_converted = raw_input("You have not entered a numeric value. It can only be attributable to human error. Try again." + "\n" + "\n" + "I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
     return int_converted
 
 
 def in_range_number(in_range_guess):
     if in_range_guess not in r:
-        print "You have not entered a number between 1 - 10. It can only be attributable to human error. Try again:" + "\n"
+        print "You have not entered a number between 1 - 10. It can only be attributable to human error. Try again." + "\n"
         guess_number()
     else:
         return in_range_guess
@@ -54,7 +54,7 @@ def in_range_number(in_range_guess):
 
 def unique_number(unique_guess):
     if unique_guess in li:
-        print "You have already tried that number. It can only be attributable to human error. Enter a different number this time:" + "\n"
+        print "You have already tried that number. It can only be attributable to human error. Enter a different number this time." + "\n"
         guess_number()
     else:
         li.append(unique_guess)
@@ -106,14 +106,12 @@ def end_game(s):
 
 # flag for user continuing to guess
 play = 'y'
-
 begin = 1
 end = 11  # number to include in range + 1
 seconds = 5
 keep = 0
 li = []
 r = range(begin, end)
-
 
 # only run these functions once and store outbput in global scope variables
 hal_number = generate_number(begin, end)
