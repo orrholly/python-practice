@@ -25,12 +25,10 @@ def introduction():
 
 # function that takes a name and ask it to guess a number
 def guess_number():
-    while keep == 0:
-        entered_guess = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
-        validated_number = validate_number(entered_guess)
-        range_number = in_range_number(validated_number)
-        tested_number = unique_number(range_number)
-        keep = 1
+    entered_guess = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+    validated_number = validate_number(entered_guess)
+    range_number = in_range_number(validated_number)
+    tested_number = unique_number(range_number)
     return tested_number
 
 
@@ -55,7 +53,6 @@ def unique_number(unique_guess):
     while unique_guess in li:
         print "You have already tried that number. It can only be attributable to human error. Enter a different number this time:" + "\n"
         guess_number()
-    li.append(unique_guess)
     return unique_guess
 
 
