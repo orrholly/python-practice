@@ -25,11 +25,14 @@ def introduction():
 
 # function that takes a name and ask it to guess a number
 def guess_number():
-    entered_guest = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
-    int_number = convert_to_number(entered_guest)
-    range_number = in_range_number(int_number)
-    final_number = unique_number(range_number)
-    return final_number
+    passed = False
+    # entered_guest = " "
+    while passed is False:
+        entered_guest = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
+        int_done = convert_to_number(entered_guest)
+        passed = test_range(int_done)
+        passed = test_unique(int_done)
+    return int_done
 
 
 def convert_to_number(validate_guess):
@@ -44,33 +47,29 @@ def convert_to_number(validate_guess):
     return int_converted
 
 
-def in_range_number(in_range_guess):
-    if in_range_guess not in r:
+def test_range(user_int):
+    if user_int not in r:
         print "You have not entered a number between 1 - 10. It can only be attributable to human error. Try again." + "\n"
-        guess_number()
+        return False
     else:
-        return in_range_guess
+        return True
 
 
-def unique_number(unique_guess):
+def test_unique(unique_guess):
     if unique_guess in li:
         print "You have already tried that number. It can only be attributable to human error. Enter a different number this time." + "\n"
-        guess_number()
+        return False
     else:
         li.append(unique_guess)
-        return unique_guess
+        return True
 
 
 # see if guess matches Hal's number
 def match_number(guess, answer):
-    # change this to is in
-    # if guess in r:
     if guess == answer:
         match = 1
     else:
         match = 0
-    # else:
-    #     match = 99
     return match
 
 
@@ -109,7 +108,8 @@ play = 'y'
 begin = 1
 end = 11  # number to include in range + 1
 seconds = 5
-keep = 0
+user_number = None
+good = True
 li = []
 r = range(begin, end)
 
@@ -122,6 +122,8 @@ user_name = introduction()
 # **************************************************************
 
 # run this while the user wants to continue to guess
+print hal_number
+
 while play == 'y':
     user_number = guess_number()
     user_test = match_number(user_number, hal_number)
