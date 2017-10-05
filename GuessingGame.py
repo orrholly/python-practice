@@ -1,10 +1,12 @@
 # **************************************************************
-# Program: Play 'Guess My Number' with Hal
+# Program:
 # Author: Holly Orr
 # Date: 10/2/2017
-# Description: Hal will generate a random number between a range
-# and user will guess until opting out or guessing the correct
-# number.
+#
+# Description:
+# Play 'Guess My Number' with Hal. Hal will generate a random
+# number between a range and user will guess until opting out
+# or guessing the correct number.
 # **************************************************************
 
 
