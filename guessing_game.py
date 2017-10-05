@@ -1,4 +1,14 @@
 # **************************************************************
+# Program: Play 'Guess My Number' with Hal
+# Author: Holly Orr
+# Date: 10/2/2017
+# Description: Hal will generate a random number between a range
+# and user will guess until opting out or guessing the correct
+# number.
+# **************************************************************
+
+
+# **************************************************************
 # IMPORT MODULES
 # **************************************************************
 import random
@@ -26,7 +36,6 @@ def introduction():
 # function that takes a name and ask it to guess a number
 def guess_number():
     passed = False
-    # entered_guest = " "
     while passed is False:
         entered_guest = raw_input("I\'m thinking of a number between 1 and 10." + "\n" + "Guess what it is: " + "\n")
         int_done = convert_to_number(entered_guest)
@@ -100,30 +109,40 @@ def end_game(s):
 
 
 # **************************************************************
-# GLOBAL SCOPE VARIABLES
+# GLOBAL VARIABLES
 # **************************************************************
 
-# flag for user continuing to guess
+# flag for user continuing to guess as y at start
 play = 'y'
+
+# set range Hal will create a random number in
 begin = 1
 end = 11  # number to include in range + 1
-seconds = 5
-user_number = None
-good = True
-li = []
 r = range(begin, end)
 
-# only run these functions once and store outbput in global scope variables
+# set the number of seconds in countdown before Hal self-destructs
+seconds = 5
+
+# initiate a list object for keeping track on user guesses
+li = []
+
+# call function to generate random number in selected range and store in
+# global variable
 hal_number = generate_number(begin, end)
+
+# call function to run introduction and store user name if global
+# variable
 user_name = introduction()
 
 # **************************************************************
 # MAIN
 # **************************************************************
 
-# run this while the user wants to continue to guess
-print hal_number
+# for testing and printing Hal's number - commented out unless
+# needed for testing
+# print hal_number
 
+# run this code while the user wants to continue to guess
 while play == 'y':
     user_number = guess_number()
     user_test = match_number(user_number, hal_number)
