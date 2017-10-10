@@ -10,8 +10,8 @@
 # If it's divisible by both 3 and 5, print CracklePop.
 # **************************************************************
 
-start = 1;
-stop = 101;
+start = 1;  # range start number
+stop = 101; # number to include in range + 1
 
 for i in range(start, stop):
     if (i % 3 == 0) and (i % 5 == 0):
