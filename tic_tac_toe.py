@@ -57,10 +57,12 @@ def player2_move():
     display_game_board()
 
 def check_winner():
-    is_winner = all(top_row[0] == item for item in top_row)
-    print is_winner
-
-
+    # is_winner = all(top_row[0] == item for item in top_row)
+    # print is_winner
+    for combo in winning_combos:
+        is_winner = all(combo[0] == item for item in combo)
+        if is_winner is True:
+            print "You are a winner!"
 
 def check_number(player):
     passed = False
