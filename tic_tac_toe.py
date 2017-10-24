@@ -11,15 +11,9 @@
 # you have time.
 # **************************************************************
 
-
-
-
 # **************************************************************
 # IMPORT MODULES
 # **************************************************************
-
-
-
 
 # **************************************************************
 # FUNCTIONS
@@ -28,9 +22,9 @@
 def introduction():
     print "Welcome. Will you be playing in 1 or 2 player mode?"
     # capture if they will be playing machine
-    displqy_game_board()
+    display_game_board()
 
-def displqy_game_board():
+def display_game_board():
     print gameboard[0], "|", gameboard[1], "|", gameboard[2]
     print "---------"
     print gameboard[3], "|", gameboard[4], "|", gameboard[5]
@@ -42,9 +36,22 @@ def player1_move():
     while True:
         if player1_input != 'x' and player1_input != 'o':
             player1_input == 'x'
+            display_game_board()
             break;
         else:
             print "That spot is already taken! Try again!"
+            display_game_board()
+
+def player2_move():
+    player2_input = check_number()
+    while True:
+        if player2_input != 'x' and player2_input != 'o':
+            player2_input == 'o'
+            display_game_board()
+            break;
+        else:
+            print "That spot is already taken! Try again!"
+            display_game_board()
 
 def check_number():
     passed = False
@@ -74,11 +81,10 @@ def test_range(user_int):
     else:
         return True
 
-
-
 # **************************************************************
 # GLOBAL VARIABLES
 # **************************************************************
+
 
 # create gameboard list variable with 9 ints
 r = range(9)
@@ -89,8 +95,9 @@ gameboard = [(i + 1) for i in r]
 # MAIN
 # **************************************************************
 
+introduction()
+
 while True:
-    introduction()
     player1_move()
     player2_move()
 
