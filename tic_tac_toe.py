@@ -20,22 +20,27 @@
 # **************************************************************
 
 def introduction():
-    print "Welcome. Will you be playing in 1 or 2 player mode?"
-    # capture if they will be playing machine
+    # TODO: if adding logic to give option to play computer
+    # print "Welcome. Will you be playing in 1 or 2 player mode?"
+
+    # TODO: put directions here
+
     display_game_board()
 
 def display_game_board():
+    print "\n"
     print gameboard[0], "|", gameboard[1], "|", gameboard[2]
     print "---------"
     print gameboard[3], "|", gameboard[4], "|", gameboard[5]
     print "---------"
     print gameboard[6], "|", gameboard[7], "|", gameboard[8]
+    print "\n"
 
 def player1_move():
     player1_input = check_number()
     while True:
-        if player1_input != 'x' and player1_input != 'o':
-            player1_input == 'x'
+        if gameboard[player1_input] != 'x' and gameboard[player1_input] != 'o':
+            gameboard[player1_input] = 'x'
             display_game_board()
             break;
         else:
@@ -56,7 +61,7 @@ def player2_move():
 def check_number():
     passed = False
     while passed is False:
-        entered_number = raw_input("Select a spot by it's number.")
+        entered_number = raw_input("Select a spot by it's number on the board:  ")
         int_done = convert_to_number(entered_number)
         passed = test_range(int_done)
     return int_done
@@ -70,12 +75,12 @@ def convert_to_number(validate_int):
             int_converted = int(int_converted)
             result = int_converted
         except ValueError:
-            int_converted = raw_input("You have not entered a numeric value. Try again." )
+            int_converted = raw_input("You have not entered a numeric value. Try again:  " )
     return int_converted
 
 
 def test_range(user_int):
-    if user_int not in r:
+    if user_int not in gameboard:
         print "You have not entered a spot by it number between 1 - 9. "
         return False
     else:
@@ -87,8 +92,9 @@ def test_range(user_int):
 
 
 # create gameboard list variable with 9 ints
-r = range(9)
-gameboard = [(i + 1) for i in r]
+# r = range(9)
+# gameboard = [(i + 1) for i in r]
+gameboard = range(9)
 
 
 # **************************************************************
