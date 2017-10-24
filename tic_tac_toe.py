@@ -56,6 +56,11 @@ def player2_move():
             print "That spot is already taken!" + "\n"
     display_game_board()
 
+def check_winner():
+    is_winner = all(top_row[0] == item for item in top_row)
+    print is_winner
+
+
 
 def check_number(player):
     passed = False
@@ -89,14 +94,26 @@ def test_range(user_int):
 # GLOBAL VARIABLES
 # **************************************************************
 
-
 # create gameboard list variable with 9 ints
-# r = range(9)
-# gameboard = [(i + 1) for i in r]
 gameboard = range(9)
+
 # for error checking that the chosen spot is in range
 r = range(9)
 
+# winning rows
+top_row = [gameboard[0], gameboard[1], gameboard[2]]
+mid_row = [gameboard[3], gameboard[4], gameboard[5]]
+bottom_row = [gameboard[6], gameboard[7], gameboard[8]]
+# winning columns
+left_col = [gameboard[0], gameboard[3], gameboard[6]]
+mid_col = [gameboard[1], gameboard[4], gameboard[7]]
+right_col = [gameboard[2], gameboard[5], gameboard[8]]
+# winning diagonals
+diag_lr = [gameboard[0], gameboard[4], gameboard[8]]
+diag_rl = [gameboard[2], gameboard[4], gameboard[6]]
+
+# list of all winning combination lists
+winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
 
 # **************************************************************
 # MAIN
@@ -107,6 +124,7 @@ introduction()
 while True:
     player1_move()
     player2_move()
+    check_winner()
 
 
 
