@@ -5,13 +5,14 @@
 #
 # Description:
 # write a program that lets two humans play a game of Tic Tac Toe in a terminal. The program should let the players take
-#  turns to input their moves. The program should report the outcome of the game.
+# turns to input their moves. The program should report the outcome of the game.
 
 # For later:  add support for a computer player to your game. You can start with random moves and make the AI smarter if
 # you have time.
 # **************************************************************
 
-import sys
+# TODO add modules for playing computer
+# import random
 
 # **************************************************************
 # GLOBAL VARIABLES
@@ -138,9 +139,10 @@ def play_again():
     print "-------------------"
     print "\n"
     # ask if want to play again
+
     go_again = raw_input("Would you like to play again? Enter y or n:" + "\n")
-    # TODO lowercase caste
-    # TODO check entered y or n
+    check_go_again()
+
     if go_again == "y":
         global gameboard
         gameboard = range(9)
@@ -149,6 +151,17 @@ def play_again():
     else:
         print "Thanks for playing!"
         exit()
+
+def check_go_again():
+    global go_again
+    try:
+        go_again = go_again.lower()
+    except ValueError:
+        print 'Please enter y or n.'
+    if go_again is 'y' or 'n':
+        go_again = raw_input("Would you like to play again? Enter y or n:" + "\n")
+
+
 
 def check_number(player):
     passed = False
