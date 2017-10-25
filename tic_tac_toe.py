@@ -75,10 +75,20 @@ def check_winner():
     # list of all winning combination lists
     winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
 
+    #variables for player1 and player2
+    x_win = "x"
+    o_win = "o"
+
     for combo in winning_combos:
         is_winner = all(combo[0] == item for item in combo)
         if is_winner is True:
-            print "You are a winner!"
+            if x_win in combo:
+                print "The x's win! Congrats Player 1!"
+            elif o_win in combo:
+                print "The o's win! Congrats Player 2!"
+
+# def play_again():
+
 
 def check_number(player):
     passed = False
@@ -118,21 +128,6 @@ gameboard = range(9)
 # for error checking that the chosen spot is in range
 r = range(9)
 
-# # winning rows
-# top_row = [gameboard[0], gameboard[1], gameboard[2]]
-# mid_row = [gameboard[3], gameboard[4], gameboard[5]]
-# bottom_row = [gameboard[6], gameboard[7], gameboard[8]]
-# # winning columns
-# left_col = [gameboard[0], gameboard[3], gameboard[6]]
-# mid_col = [gameboard[1], gameboard[4], gameboard[7]]
-# right_col = [gameboard[2], gameboard[5], gameboard[8]]
-# # winning diagonals
-# diag_lr = [gameboard[0], gameboard[4], gameboard[8]]
-# diag_rl = [gameboard[2], gameboard[4], gameboard[6]]
-
-# # list of all winning combination lists
-# winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
-
 # **************************************************************
 # MAIN
 # **************************************************************
@@ -143,6 +138,8 @@ while True:
     player1_move()
     player2_move()
     check_winner()
+    # TODO play again logic
+    # play_again()
 
 
 
