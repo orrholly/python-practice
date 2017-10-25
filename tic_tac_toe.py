@@ -13,9 +13,11 @@
 
 import sys
 
-# GLOBAL VARIABLES**************************
-# create gameboard list variable with 9 ints
+# **************************************************************
+# GLOBAL VARIABLES
+# **************************************************************
 
+# create gameboard list variable with 9 ints
 gameboard = range(9)
 
 # for error checking that the chosen spot is in range
@@ -28,18 +30,21 @@ player2_score = 0
 # set global flag to keep or stop playing
 go_again = "y"
 
+# **************************************************************
+# FUNCTIONS
+# **************************************************************
 
 def introduction():
     # TODO: if adding logic to give option to play computer
     # print "Welcome. Will you be playing in 1 or 2 player mode?"
 
     # TODO: put directions here
-
-    display_game_board()
+    print "Let's play tic-tac-toe!"
 
 
 def play_game():
     global go_again
+    display_game_board()
     while go_again == "y":
         player1_move()
         player2_move()
@@ -53,6 +58,7 @@ def display_game_board():
     print gameboard[6], "|", gameboard[7], "|", gameboard[8]
     print "\n"
 
+
 def player1_move():
     while True:
         player1_input = check_number("Player 1")
@@ -63,6 +69,7 @@ def player1_move():
             print "That spot is already taken!" + "\n"
     display_game_board()
     check_winner()
+
 
 def player2_move():
     while True:
@@ -120,6 +127,7 @@ def play_again():
     # get global variables for scores
     global player1_score
     global player2_score
+    global go_again
     str_player1_score = str(player1_score)
     str_player2_score = str(player2_score)
     # print score
@@ -127,7 +135,7 @@ def play_again():
     print "SCORE:"
     print "-------------------"
     print "PLAYER 1 | PLAYER 2"
-    print "  " + str_player1_score + " |   " + str_player2_score
+    print "       " + str_player1_score + " |   " + str_player2_score
     print "-------------------"
     print "\n"
     # ask if want to play again
@@ -135,10 +143,16 @@ def play_again():
     # TODO lowercase caste
     # TODO check entered y or n
     if go_again == "y":
+        global gameboard
+        gameboard = range(9)
         print "Great! Let's keep playing!"
         play_game()
-    elif go_again == "n":
-        exit_game()
+    else:
+        exit()
+    # elif go_again == "n":
+    #     print "Thanks for playing!"
+    #     play_game()
+
 
 def check_number(player):
     passed = False
@@ -169,15 +183,14 @@ def test_range(user_int):
         return True
 
 
-def exit_game():
-    print "Thanks for playing! Have a great day!"
-    sys.exitfunc()
-
-
 def main():
-
+    # if go_again == "y":
     introduction()
     play_game()
+    # elif go_again == "n":
+    #     print "Thanks for playing!"
+    #     sys.exitfunc()
+
 
 if __name__ == "__main__":
     main()
