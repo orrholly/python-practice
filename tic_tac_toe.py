@@ -59,6 +59,22 @@ def player2_move():
 def check_winner():
     # is_winner = all(top_row[0] == item for item in top_row)
     # print is_winner
+
+    # winning rows
+    top_row = [gameboard[0], gameboard[1], gameboard[2]]
+    mid_row = [gameboard[3], gameboard[4], gameboard[5]]
+    bottom_row = [gameboard[6], gameboard[7], gameboard[8]]
+    # winning columns
+    left_col = [gameboard[0], gameboard[3], gameboard[6]]
+    mid_col = [gameboard[1], gameboard[4], gameboard[7]]
+    right_col = [gameboard[2], gameboard[5], gameboard[8]]
+    # winning diagonals
+    diag_lr = [gameboard[0], gameboard[4], gameboard[8]]
+    diag_rl = [gameboard[2], gameboard[4], gameboard[6]]
+
+    # list of all winning combination lists
+    winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
+
     for combo in winning_combos:
         is_winner = all(combo[0] == item for item in combo)
         if is_winner is True:
@@ -102,20 +118,20 @@ gameboard = range(9)
 # for error checking that the chosen spot is in range
 r = range(9)
 
-# winning rows
-top_row = [gameboard[0], gameboard[1], gameboard[2]]
-mid_row = [gameboard[3], gameboard[4], gameboard[5]]
-bottom_row = [gameboard[6], gameboard[7], gameboard[8]]
-# winning columns
-left_col = [gameboard[0], gameboard[3], gameboard[6]]
-mid_col = [gameboard[1], gameboard[4], gameboard[7]]
-right_col = [gameboard[2], gameboard[5], gameboard[8]]
-# winning diagonals
-diag_lr = [gameboard[0], gameboard[4], gameboard[8]]
-diag_rl = [gameboard[2], gameboard[4], gameboard[6]]
+# # winning rows
+# top_row = [gameboard[0], gameboard[1], gameboard[2]]
+# mid_row = [gameboard[3], gameboard[4], gameboard[5]]
+# bottom_row = [gameboard[6], gameboard[7], gameboard[8]]
+# # winning columns
+# left_col = [gameboard[0], gameboard[3], gameboard[6]]
+# mid_col = [gameboard[1], gameboard[4], gameboard[7]]
+# right_col = [gameboard[2], gameboard[5], gameboard[8]]
+# # winning diagonals
+# diag_lr = [gameboard[0], gameboard[4], gameboard[8]]
+# diag_rl = [gameboard[2], gameboard[4], gameboard[6]]
 
-# list of all winning combination lists
-winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
+# # list of all winning combination lists
+# winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
 
 # **************************************************************
 # MAIN
