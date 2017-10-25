@@ -11,13 +11,23 @@
 # you have time.
 # **************************************************************
 
-# **************************************************************
-# IMPORT MODULES
-# **************************************************************
+import sys
 
-# **************************************************************
-# FUNCTIONS
-# **************************************************************
+# GLOBAL VARIABLES**************************
+# create gameboard list variable with 9 ints
+
+gameboard = range(9)
+
+# for error checking that the chosen spot is in range
+r = range(9)
+
+# score keeping
+player1_score = 0
+player2_score = 0
+
+# set global flag to keep or stop playing
+go_again = "y"
+
 
 def introduction():
     # TODO: if adding logic to give option to play computer
@@ -26,6 +36,13 @@ def introduction():
     # TODO: put directions here
 
     display_game_board()
+
+
+def play_game():
+    global go_again
+    while go_again == "y":
+        player1_move()
+        player2_move()
 
 def display_game_board():
     print "\n"
@@ -58,6 +75,7 @@ def player2_move():
     display_game_board()
     check_winner()
 
+
 def check_winner():
     # is_winner = all(top_row[0] == item for item in top_row)
     # print is_winner
@@ -88,13 +106,15 @@ def check_winner():
                 print "The x's win! Congrats Player 1!"
                 global player1_score
                 player1_score += 1
-                print str(player1_score)
+                # print str(player1_score)
+                play_again()
             elif o_win in combo:
                 global player2_score
                 player2_score += 1
-                print str(player2_score)
+                # print str(player2_score)
                 print "The o's win! Congrats Player 2!"
-            play_again()
+                play_again()
+
 
 def play_again():
     # get global variables for scores
@@ -116,9 +136,9 @@ def play_again():
     # TODO check entered y or n
     if go_again == "y":
         print "Great! Let's keep playing!"
+        play_game()
     elif go_again == "n":
-        print "Goodbye!"
-
+        exit_game()
 
 def check_number(player):
     passed = False
@@ -148,26 +168,16 @@ def test_range(user_int):
     else:
         return True
 
+
+def exit_game():
+    print "Thanks for playing! Have a great day!"
+    sys.exitfunc()
+
+
 def main():
-    # GLOBAL VARIABLES
-    # create gameboard list variable with 9 ints
-    gameboard = range(9)
-
-    # for error checking that the chosen spot is in range
-    r = range(9)
-
-    # score keeping
-    player1_score = 0
-    player2_score = 0
-
-    # set global flag to keep or stop playing
-    go_again = "y"
 
     introduction()
     play_game()
 
-def play_game():
-    global go_again
-    while go_again == "y":
-        player1_move()
-        player2_move()
+if __name__ == "__main__":
+    main()
