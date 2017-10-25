@@ -45,6 +45,7 @@ def player1_move():
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
+    check_winner()
 
 def player2_move():
     while True:
@@ -55,6 +56,7 @@ def player2_move():
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
+    check_winner()
 
 def check_winner():
     # is_winner = all(top_row[0] == item for item in top_row)
@@ -75,7 +77,7 @@ def check_winner():
     # list of all winning combination lists
     winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
 
-    #variables for player1 and player2
+    # variables for player1 and player2
     x_win = "x"
     o_win = "o"
 
@@ -84,10 +86,38 @@ def check_winner():
         if is_winner is True:
             if x_win in combo:
                 print "The x's win! Congrats Player 1!"
+                global player1_score
+                player1_score += 1
+                print str(player1_score)
             elif o_win in combo:
+                global player2_score
+                player2_score += 1
+                print str(player2_score)
                 print "The o's win! Congrats Player 2!"
+            play_again()
 
-# def play_again():
+def play_again():
+    # get global variables for scores
+    global player1_score
+    global player2_score
+    str_player1_score = str(player1_score)
+    str_player2_score = str(player2_score)
+    # print score
+    print "\n"
+    print "SCORE:"
+    print "-------------------"
+    print "PLAYER 1 | PLAYER 2"
+    print "  " + str_player1_score + " |   " + str_player2_score
+    print "-------------------"
+    print "\n"
+    # ask if want to play again
+    go_again = raw_input("Would you like to play again? Enter y or n:" + "\n")
+    # TODO lowercase caste
+    # TODO check entered y or n
+    if go_again == "y":
+        print "Great! Let's keep playing!"
+    elif go_again == "n":
+        print "Goodbye!"
 
 
 def check_number(player):
@@ -118,28 +148,26 @@ def test_range(user_int):
     else:
         return True
 
-# **************************************************************
-# GLOBAL VARIABLES
-# **************************************************************
+def main():
+    # GLOBAL VARIABLES
+    # create gameboard list variable with 9 ints
+    gameboard = range(9)
 
-# create gameboard list variable with 9 ints
-gameboard = range(9)
+    # for error checking that the chosen spot is in range
+    r = range(9)
 
-# for error checking that the chosen spot is in range
-r = range(9)
+    # score keeping
+    player1_score = 0
+    player2_score = 0
 
-# **************************************************************
-# MAIN
-# **************************************************************
+    # set global flag to keep or stop playing
+    go_again = "y"
 
-introduction()
+    introduction()
+    play_game()
 
-while True:
-    player1_move()
-    player2_move()
-    check_winner()
-    # TODO play again logic
-    # play_again()
-
-
-
+def play_game():
+    global go_again
+    while go_again == "y":
+        player1_move()
+        player2_move()
