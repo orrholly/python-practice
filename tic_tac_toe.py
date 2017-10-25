@@ -36,11 +36,11 @@ go_again = "y"
 # **************************************************************
 
 def introduction():
+    print "Let's play tic-tac-toe!"
+    print "Player 1 will be 'x' and Player 2 will be 'o'."
+
     # TODO: if adding logic to give option to play computer
     # print "Welcome. Will you be playing in 1 or 2 player mode?"
-
-    # TODO: put directions here
-    print "Let's play tic-tac-toe!"
 
 
 def play_game():
@@ -62,7 +62,7 @@ def display_game_board():
 
 def player1_move():
     while True:
-        player1_input = check_number("Player 1")
+        player1_input = check_number("Player 1", "x")
         if gameboard[player1_input] != 'x' and gameboard[player1_input] != 'o':
             gameboard[player1_input] = 'x'
             break;
@@ -74,7 +74,7 @@ def player1_move():
 
 def player2_move():
     while True:
-        player2_input = check_number("Player 2")
+        player2_input = check_number("Player 2", "o")
         if gameboard[player2_input] != 'x' and gameboard[player2_input] != 'o':
             gameboard[player2_input] = 'o'
             break;
@@ -153,10 +153,10 @@ def play_again():
         exit()
 
 
-def check_number(player):
+def check_number(player, symbol):
     passed = False
     while passed is False:
-        entered_player = raw_input(player + " It's your turn. Enter the number of the spot on the board:  " + "\n")
+        entered_player = raw_input(player + ", it's your turn. Enter the number on the board where you want to place an " + symbol + ": \n")
         int_done = convert_to_number(entered_player)
         passed = test_range(int_done)
     return int_done
