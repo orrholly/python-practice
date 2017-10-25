@@ -46,7 +46,7 @@ def introduction():
 def play_game():
     global go_again
     display_game_board()
-    while go_again == "y":
+    while go_again.lower() == "y":
         player1_move()
         player2_move()
 
@@ -139,11 +139,11 @@ def play_again():
     print "-------------------"
     print "\n"
     # ask if want to play again
-
     go_again = raw_input("Would you like to play again? Enter y or n:" + "\n")
-    check_go_again()
+    while go_again.lower() != "n" and go_again.lower() != "y":
+        go_again = raw_input("You must enter y or n:" + "\n")
 
-    if go_again == "y":
+    if go_again.lower() == "y":
         global gameboard
         gameboard = range(9)
         print "Great! Let's keep playing!"
@@ -151,16 +151,6 @@ def play_again():
     else:
         print "Thanks for playing!"
         exit()
-
-def check_go_again():
-    global go_again
-    try:
-        go_again = go_again.lower()
-    except ValueError:
-        print 'Please enter y or n.'
-    if go_again is 'y' or 'n':
-        go_again = raw_input("Would you like to play again? Enter y or n:" + "\n")
-
 
 
 def check_number(player):
