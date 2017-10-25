@@ -84,9 +84,6 @@ def player2_move():
 
 
 def check_winner():
-    # is_winner = all(top_row[0] == item for item in top_row)
-    # print is_winner
-
     # winning rows
     top_row = [gameboard[0], gameboard[1], gameboard[2]]
     mid_row = [gameboard[3], gameboard[4], gameboard[5]]
@@ -113,12 +110,10 @@ def check_winner():
                 print "The x's win! Congrats Player 1!"
                 global player1_score
                 player1_score += 1
-                # print str(player1_score)
                 play_again()
             elif o_win in combo:
                 global player2_score
                 player2_score += 1
-                # print str(player2_score)
                 print "The o's win! Congrats Player 2!"
                 play_again()
 
@@ -130,7 +125,6 @@ def play_again():
     global go_again
     str_player1_score = str(player1_score)
     str_player2_score = str(player2_score)
-    # print score
     print "\n"
     print "SCORE:"
     print "-------------------"
@@ -148,11 +142,8 @@ def play_again():
         print "Great! Let's keep playing!"
         play_game()
     else:
+        print "Thanks for playing!"
         exit()
-    # elif go_again == "n":
-    #     print "Thanks for playing!"
-    #     play_game()
-
 
 def check_number(player):
     passed = False
@@ -184,12 +175,8 @@ def test_range(user_int):
 
 
 def main():
-    # if go_again == "y":
     introduction()
     play_game()
-    # elif go_again == "n":
-    #     print "Thanks for playing!"
-    #     sys.exitfunc()
 
 
 if __name__ == "__main__":
