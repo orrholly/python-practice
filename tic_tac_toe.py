@@ -103,19 +103,24 @@ def check_winner():
     x_win = "x"
     o_win = "o"
 
-    for combo in winning_combos:
-        is_winner = all(combo[0] == item for item in combo)
-        if is_winner is True:
-            if x_win in combo:
-                print "The x's win! Congrats Player 1!"
-                global player1_score
-                player1_score += 1
-                play_again()
-            elif o_win in combo:
-                global player2_score
-                player2_score += 1
-                print "The o's win! Congrats Player 2!"
-                play_again()
+    is_tied = all(isinstance(x, str) for x in gameboard)
+    if is_tied is True:
+        print "It's a tie!"
+        play_again()
+    else:
+        for combo in winning_combos:
+            is_winner = all(combo[0] == item for item in combo)
+            if is_winner is True:
+                if x_win in combo:
+                    print "The x's win! Congrats Player 1!"
+                    global player1_score
+                    player1_score += 1
+                    play_again()
+                elif o_win in combo:
+                    global player2_score
+                    player2_score += 1
+                    print "The o's win! Congrats Player 2!"
+                    play_again()
 
 
 def play_again():
