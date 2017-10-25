@@ -11,7 +11,7 @@
 # you have time.
 # **************************************************************
 
-# TODO add modules for playing computer
+# TODO add packages or modules for playing against computer
 # import random
 
 # **************************************************************
@@ -135,7 +135,7 @@ def play_again():
     print "SCORE:"
     print "-------------------"
     print "PLAYER 1 | PLAYER 2"
-    print "       " + str_player1_score + " |   " + str_player2_score
+    print "   " + str_player1_score + "     |    " + str_player2_score
     print "-------------------"
     print "\n"
     # ask if want to play again
