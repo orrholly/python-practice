@@ -1,3 +1,4 @@
+# coding=utf-8
 # **************************************************************
 # Program: tic_tac_toe.py
 # Author: Holly Orr
@@ -11,12 +12,14 @@
 # you have time.
 # **************************************************************
 
-# TODO add packages or modules for playing against computer
-# import random
+import random
 
 # **************************************************************
 # GLOBAL VARIABLES
 # **************************************************************
+
+# set player mode to zero initially to be set to 1 or 2 by user
+player_mode = 0
 
 # create gameboard list variable with 9 ints
 gameboard = range(9)
@@ -35,13 +38,42 @@ go_again = "y"
 # FUNCTIONS
 # **************************************************************
 
+# TODO: Change all player1 to playerx and all player2 to player0
+
 def introduction():
     print "\n"
     print "Let's play tic-tac-toe!"
-    print "Player 1 will be 'x' and Player 2 will be 'o'."
 
     # TODO: if adding logic to give option to play computer
-    # print "Welcome. Will you be playing in 1 or 2 player mode?"
+    global player_mode
+    while not (player_mode == 1 or player_mode == 2):
+        player_mode = convert_to_number(raw_input("Welcome. Will you be playing in 1 or 2 player mode?: \n"))
+
+
+# def inputPlayerLetter():
+#       # Lets the player type which letter they want to be.
+#       # Returns a list with the player’s letter as the first item, and the computer's letter as the second.
+#       letter = ''
+#       while not (letter == 'x' or letter == 'o'):
+#           print('Do you want to be X or O?')
+#           letter = input().lower()
+#
+#       # if user chooses x, it will be listed first, if chooses o it will be listed first
+#       if letter == 'x':
+#           return ['x', 'o']
+#       else:
+#          return ['o', 'x']
+
+
+
+# TODO: Add random generator to see who goes first
+# def whoGoesFirst():
+#       # Randomly choose the player who goes first.
+#      if random.randint(0, 1) == 0:
+#           return 'player_x'
+#      else:
+#          return 'player_o'
+
 
 
 def play_game():
@@ -83,6 +115,8 @@ def player2_move():
             print "That spot is already taken!" + "\n"
     display_game_board()
     check_winner()
+
+# TODO add computer move logic
 
 
 def check_winner():
