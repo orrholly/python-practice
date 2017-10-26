@@ -48,21 +48,20 @@ def introduction():
     global player_mode
     while not (player_mode == 1 or player_mode == 2):
         player_mode = convert_to_number(raw_input("Welcome. Will you be playing in 1 or 2 player mode?: \n"))
+        player1_gamepiece, player2_gamepiece = input_player_piece()
+        # turn = whoGoesFirst()
 
 
-# def inputPlayerLetter():
-#       # Lets the player type which letter they want to be.
-#       # Returns a list with the player’s letter as the first item, and the computer's letter as the second.
-#       letter = ''
-#       while not (letter == 'x' or letter == 'o'):
-#           print('Do you want to be X or O?')
-#           letter = input().lower()
-#
-#       # if user chooses x, it will be listed first, if chooses o it will be listed first
-#       if letter == 'x':
-#           return ['x', 'o']
-#       else:
-#          return ['o', 'x']
+def input_player_piece():
+    piece = ''
+    while not (piece == 'x' or piece == 'o'):
+        print
+        piece = raw_input("Do you want to be x or o?" + "\n")
+    # if user chooses x, it will be listed first, if chooses o it will be listed first
+    if piece == 'x':
+        return ['x', 'o']
+    else:
+        return ['o', 'x']
 
 
 
