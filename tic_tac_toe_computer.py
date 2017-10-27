@@ -37,40 +37,44 @@ player2_score = 0
 # set global flag to keep or stop playing
 go_again = "y"
 
+player_1_name = ""
+player_2_name = ""
+
 # **************************************************************
 # FUNCTIONS
 # **************************************************************
 
-# TODO: Change all player1 to playerx and all player2 to player0
-
 def introduction():
     print "\n"
     print "Let's play tic-tac-toe!"
-
-    # TODO: if adding logic to give option to play computer
     global player_mode
     global player1_gamepiece
     global player2_gamepiece
     global turn
+    global player_1_name
+    global player_2_name
+    player_1_name = raw_input("What is your name?: \n")
     while not (player_mode == 1 or player_mode == 2):
-        player_mode = convert_to_number(raw_input("Welcome. Will you be playing in 1 or 2 player mode?: \n"))
+        player_mode = convert_to_number(raw_input("Welcome " + player_1_name + ". Will you be playing in 1 or 2 player mode?: \n"))
         if player_mode == 1:
-            print "You chose to play the computer."
+            print "Hello " + player_1_name + ", you have chosen to play the computer. You can call me Hal."
+            player_2_name = "Hal"
         else:
-            print "You chose to play another human."
+            print "Hello " + player_1_name + ", you have chosen to play another human."
+            player_2_name = raw_input("What is the other human's name?: \n")
         player1_gamepiece, player2_gamepiece = input_player_piece()
         turn = go_first()
         if turn == "player_1":
-            print('Congrats Player 1. The ' + player1_gamepiece + ' \'s will go first.')
+            print("Congrats " + player_1_name + ". The " + player1_gamepiece + " \'s will go first.")
         else:
-            print('Congrats Player 2. The ' + player2_gamepiece + ' \'s will go first.')
+            print("Congrats " + player_2_name + ". The " + player2_gamepiece + " \'s will go first.")
 
 
 def input_player_piece():
     piece = ''
     while not (piece == 'x' or piece == 'o'):
         print
-        piece = raw_input("Do you want to be x or o?" + "\n")
+        piece = raw_input(player_1_name + ", do you want to be x or o?" + "\n")
     # if user chooses x, it will be listed first, if chooses o it will be listed first
     if piece == 'x':
         return ['x', 'o']
@@ -127,7 +131,7 @@ def player1_move():
     global player1_gamepiece
     global turn
     while True:
-        player1_input = check_number("Player 1", player1_gamepiece)
+        player1_input = check_number(player_1_name, player1_gamepiece)
         if gameboard[player1_input] != 'x' and gameboard[player1_input] != 'o':
             gameboard[player1_input] = player1_gamepiece
             break;
@@ -142,7 +146,7 @@ def player2_move():
     global player2_gamepiece
     global turn
     while True:
-        player2_input = check_number("Player 2", player2_gamepiece)
+        player2_input = check_number(player_2_name, player2_gamepiece)
         if gameboard[player2_input] != 'x' and gameboard[player2_input] != 'o':
             gameboard[player2_input] = player2_gamepiece
             break;
@@ -152,12 +156,11 @@ def player2_move():
     check_winner()
     turn = "player_1"
 
-# TODO add computer move logic
 def player2_computer_move():
     global player2_gamepiece
     global turn
     global r
-    print "It's my turn. I'm thinking.... Here's my move."
+    print "It's my turn. I'm thinking.... I just added an " + player2_gamepiece + "to the board."
     good_move = False
     while good_move is False:
         computer_input = random.choice(r)
@@ -200,16 +203,26 @@ def check_winner():
         for combo in winning_combos:
             is_winner = all(combo[0] == item for item in combo)
             if is_winner is True:
-                if x_win in combo:
-                    print "The x's win! Congrats Player 1!"
+                if player1_gamepiece in combo:
+                    print "The " + player1_gamepiece + "'s win! Congratulations " + player_1_name + "!"
                     global player1_score
                     player1_score += 1
                     play_again()
-                elif o_win in combo:
+                elif player2_gamepiece in combo:
+                    print "The " + player2_gamepiece + "'s win! Congratulations " + player_2_name + "!"
                     global player2_score
                     player2_score += 1
-                    print "The o's win! Congrats Player 2!"
                     play_again()
+                # if x_win in combo:
+                #     print "The x's win! Congrats Player 1!"
+                #     global player1_score
+                #     player1_score += 1
+                #     play_again()
+                # elif o_win in combo:
+                #     global player2_score
+                #     player2_score += 1
+                #     print "The o's win! Congrats Player 2!"
+                #     play_again()
 
 
 def play_again():
@@ -222,8 +235,8 @@ def play_again():
     print "\n"
     print "SCORE:"
     print "-------------------"
-    print "PLAYER 1 | PLAYER 2"
-    print "   " + str_player1_score + "     |    " + str_player2_score
+    print player_1_name + ": " + str_player1_score
+    print player_2_name + ": " + str_player2_score
     print "-------------------"
     print "\n"
     # ask if want to play again
@@ -245,7 +258,7 @@ def play_again():
 def check_number(player, symbol):
     passed = False
     while passed is False:
-        entered_player = raw_input(player + ", it's your turn. Enter the number on the board where you want to place an " + symbol + ": \n")
+        entered_player = raw_input(player + ", enter the number on the board where you want to place an " + symbol + ": \n")
         int_done = convert_to_number(entered_player)
         passed = test_range(int_done)
     return int_done
