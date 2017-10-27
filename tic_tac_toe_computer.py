@@ -148,11 +148,14 @@ def player2_move():
 def player2_computer_move():
     global player2_gamepiece
     global turn
-    while True:
-        player2_input = check_number("Player 2", player2_gamepiece)
-        if gameboard[player2_input] != 'x' and gameboard[player2_input] != 'o':
-            gameboard[player2_input] = player2_gamepiece
-            break;
+    print "It's my turn. I'm thinking.... Here's my move."
+    good_move = False
+    while good_move is False:
+        computer_input = random.choice(gameboard)
+        int_computer_input = int(computer_input)
+        if gameboard[int_computer_input] != 'x' and gameboard[int_computer_input] != 'o':
+            gameboard[int_computer_input] = player2_gamepiece
+            good_move = True
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
