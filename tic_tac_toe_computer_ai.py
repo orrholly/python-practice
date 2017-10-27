@@ -166,21 +166,25 @@ def player2_computer_move():
     global turn
     global r
     print "It's my turn. I'm thinking.... I just added an " + player2_gamepiece + " to the board."
-    good_move = False
-    while good_move is False:
-        computer_input = random.choice(r)
-        int_computer_input = int(computer_input)
-        if gameboard[int_computer_input] != 'x' and gameboard[int_computer_input] != 'o':
-            gameboard[int_computer_input] = player2_gamepiece
-            good_move = True
-        else:
-            good_move = False
+    block_index = check_block()
+    if block_index != 99:
+        gameboard[block_index] = player2_gamepiece
+    else:
+        good_move = False
+        while good_move is False:
+            computer_input = random.choice(r)
+            int_computer_input = int(computer_input)
+            if gameboard[int_computer_input] != 'x' and gameboard[int_computer_input] != 'o':
+                gameboard[int_computer_input] = player2_gamepiece
+                good_move = True
+            else:
+                good_move = False
     display_game_board()
     check_winner()
     turn = "player_1"
 
 
-def check_winner():
+def possible_wins():
     # winning rows
     top_row = [gameboard[0], gameboard[1], gameboard[2]]
     mid_row = [gameboard[3], gameboard[4], gameboard[5]]
@@ -194,7 +198,41 @@ def check_winner():
     diag_rl = [gameboard[2], gameboard[4], gameboard[6]]
 
     # list of all winning combination lists
-    winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
+    possible_plays = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
+
+    return possible_plays
+
+
+def check_block():
+    winning_blocks = possible_wins()
+    for block in winning_blocks:
+    unique_number = len(set(block))
+    if unique_number == 2:
+        for i in range(len(block)):
+            if i != 'x' and i != 'o':
+                return i
+    else:
+        return 99
+
+
+def check_winner():
+    # winning rows
+    # top_row = [gameboard[0], gameboard[1], gameboard[2]]
+    # mid_row = [gameboard[3], gameboard[4], gameboard[5]]
+    # bottom_row = [gameboard[6], gameboard[7], gameboard[8]]
+    # # winning columns
+    # left_col = [gameboard[0], gameboard[3], gameboard[6]]
+    # mid_col = [gameboard[1], gameboard[4], gameboard[7]]
+    # right_col = [gameboard[2], gameboard[5], gameboard[8]]
+    # # winning diagonals
+    # diag_lr = [gameboard[0], gameboard[4], gameboard[8]]
+    # diag_rl = [gameboard[2], gameboard[4], gameboard[6]]
+    #
+    # # list of all winning combination lists
+    # winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
+
+    winning_combos = possible_wins()
+
     for combo in winning_combos:
         is_winner = all(combo[0] == item for item in combo)
         if is_winner is True:
@@ -208,7 +246,6 @@ def check_winner():
                 global player2_score
                 player2_score += 1
                 play_again()
-
     is_tied = all(isinstance(x, str) for x in gameboard)
     if is_tied is True:
         print "It's a tie!"
