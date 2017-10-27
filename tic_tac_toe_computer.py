@@ -49,7 +49,11 @@ def introduction():
     while not (player_mode == 1 or player_mode == 2):
         player_mode = convert_to_number(raw_input("Welcome. Will you be playing in 1 or 2 player mode?: \n"))
         player1_gamepiece, player2_gamepiece = input_player_piece()
-        # turn = whoGoesFirst()
+        turn = go_first()
+        if turn == "player_1":
+            print('Congrats Player 1. The ' + player1_gamepiece + ' \'s will go first.')
+        else:
+            print('Congrats Player 2. The ' + player2_gamepiece + ' \'s will go first.')
 
 
 def input_player_piece():
@@ -66,13 +70,12 @@ def input_player_piece():
 
 
 # TODO: Add random generator to see who goes first
-# def whoGoesFirst():
-#       # Randomly choose the player who goes first.
-#      if random.randint(0, 1) == 0:
-#           return 'player_x'
-#      else:
-#          return 'player_o'
-
+def go_first():
+    # 'flip the coin' for who goes first
+    if random.randint(0, 1) == 0:
+        return 'player_1'
+    else:
+        return 'player_2'
 
 
 def play_game():
