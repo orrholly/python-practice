@@ -65,9 +65,9 @@ def introduction():
         player1_gamepiece, player2_gamepiece = input_player_piece()
         turn = go_first()
         if turn == "player_1":
-            print("Congrats " + player_1_name + ". The " + player1_gamepiece + " \'s will go first.")
+            print("Congrats " + player_1_name + ". The " + player1_gamepiece + "\'s will go first.")
         else:
-            print("Congrats " + player_2_name + ". The " + player2_gamepiece + " \'s will go first.")
+            print("Congrats " + player_2_name + ". The " + player2_gamepiece + "\'s will go first.")
 
 
 def input_player_piece():
@@ -160,7 +160,7 @@ def player2_computer_move():
     global player2_gamepiece
     global turn
     global r
-    print "It's my turn. I'm thinking.... I just added an " + player2_gamepiece + "to the board."
+    print "It's my turn. I'm thinking.... I just added an " + player2_gamepiece + " to the board."
     good_move = False
     while good_move is False:
         computer_input = random.choice(r)
@@ -169,7 +169,7 @@ def player2_computer_move():
             gameboard[int_computer_input] = player2_gamepiece
             good_move = True
         else:
-            print "Still thinking..." + "\n"
+            good_move = False
     display_game_board()
     check_winner()
     turn = "player_1"
@@ -191,38 +191,29 @@ def check_winner():
     # list of all winning combination lists
     winning_combos = [top_row, mid_row, bottom_row, left_col, mid_col, right_col, diag_lr, diag_rl]
 
-    # variables for player1 and player2
-    x_win = "x"
-    o_win = "o"
+    # all_full = all(isinstance(x, str) for x in gameboard)
+    # if is_tied is True:
+    #     print "It's a tie!"
+    #     play_again()
+    # else:
+    for combo in winning_combos:
+        is_winner = all(combo[0] == item for item in combo)
+        if is_winner is True:
+            if player1_gamepiece in combo:
+                print "The " + player1_gamepiece + "'s win! Congratulations " + player_1_name + "!"
+                global player1_score
+                player1_score += 1
+                play_again()
+            elif player2_gamepiece in combo:
+                print "The " + player2_gamepiece + "'s win! Congratulations " + player_2_name + "!"
+                global player2_score
+                player2_score += 1
+                play_again()
 
     is_tied = all(isinstance(x, str) for x in gameboard)
     if is_tied is True:
         print "It's a tie!"
         play_again()
-    else:
-        for combo in winning_combos:
-            is_winner = all(combo[0] == item for item in combo)
-            if is_winner is True:
-                if player1_gamepiece in combo:
-                    print "The " + player1_gamepiece + "'s win! Congratulations " + player_1_name + "!"
-                    global player1_score
-                    player1_score += 1
-                    play_again()
-                elif player2_gamepiece in combo:
-                    print "The " + player2_gamepiece + "'s win! Congratulations " + player_2_name + "!"
-                    global player2_score
-                    player2_score += 1
-                    play_again()
-                # if x_win in combo:
-                #     print "The x's win! Congrats Player 1!"
-                #     global player1_score
-                #     player1_score += 1
-                #     play_again()
-                # elif o_win in combo:
-                #     global player2_score
-                #     player2_score += 1
-                #     print "The o's win! Congrats Player 2!"
-                #     play_again()
 
 
 def play_again():
