@@ -41,7 +41,6 @@ def introduction():
     global player_mode
     print "\n"
     print "Let's play tic-tac-toe!"
-    print "Player 1 will be 'x' and Player 2 will be 'o'."
 
     # TODO: if adding logic to give option to play computer
     # print "Welcome. Will you be playing in 1 or 2 player mode?"

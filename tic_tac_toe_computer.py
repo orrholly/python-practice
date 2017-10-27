@@ -54,6 +54,10 @@ def introduction():
     global turn
     while not (player_mode == 1 or player_mode == 2):
         player_mode = convert_to_number(raw_input("Welcome. Will you be playing in 1 or 2 player mode?: \n"))
+        if player_mode == 1:
+            print "You chose to play the computer."
+        else:
+            print "You chose to play another human."
         player1_gamepiece, player2_gamepiece = input_player_piece()
         turn = go_first()
         if turn == "player_1":
@@ -74,15 +78,12 @@ def input_player_piece():
         return ['o', 'x']
 
 
-
-# TODO: Add random generator to see who goes first
 def go_first():
     # 'flip the coin' for who goes first
     if random.randint(0, 1) == 0:
         return 'player_1'
     else:
         return 'player_2'
-
 
 def play_game_mode_1():
     global go_again
@@ -92,8 +93,7 @@ def play_game_mode_1():
         if turn == 'player_1':
             player1_move()
         else:
-            player2_move()
-
+            player2_computer_move()
 
 def play_game_mode_2():
     global go_again
@@ -103,7 +103,7 @@ def play_game_mode_2():
         if turn == 'player_1':
             player1_move()
         else:
-            player2_computer_move()
+            player2_move()
 
 def display_game_board():
     print "\n"
@@ -260,15 +260,11 @@ def test_range(user_int):
 
 
 def main():
-    introduction()
-
-    # TODO add conditional to play in mode 1 or 2 based on response in intro
     global player_mode
-
+    introduction()
     if player_mode == 1:
-        print "You chose to play the computer"
+        play_game_mode_1()
     else:
-        print "You chose to play another human"
         play_game_mode_2()
 
 
