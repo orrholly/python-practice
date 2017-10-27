@@ -20,6 +20,9 @@ import random
 
 # set player mode to zero initially to be set to 1 or 2 by user
 player_mode = 0
+player1_gamepiece = ""
+player2_gamepiece = ""
+turn = ""
 
 # create gameboard list variable with 9 ints
 gameboard = range(9)
@@ -46,6 +49,9 @@ def introduction():
 
     # TODO: if adding logic to give option to play computer
     global player_mode
+    global player1_gamepiece
+    global player2_gamepiece
+    global turn
     while not (player_mode == 1 or player_mode == 2):
         player_mode = convert_to_number(raw_input("Welcome. Will you be playing in 1 or 2 player mode?: \n"))
         player1_gamepiece, player2_gamepiece = input_player_piece()
@@ -78,12 +84,26 @@ def go_first():
         return 'player_2'
 
 
-def play_game():
+def play_game_mode_1():
     global go_again
+    global turn
     display_game_board()
     while go_again.lower() == "y":
-        player1_move()
-        player2_move()
+        if turn == 'player_1':
+            player1_move()
+        else:
+            player2_move()
+
+
+def play_game_mode_2():
+    global go_again
+    global turn
+    display_game_board()
+    while go_again.lower() == "y":
+        if turn == 'player_1':
+            player1_move()
+        else:
+            player2_computer_move()
 
 def display_game_board():
     print "\n"
@@ -96,29 +116,48 @@ def display_game_board():
 
 
 def player1_move():
+    global player1_gamepiece
+    global turn
     while True:
-        player1_input = check_number("Player 1", "x")
+        player1_input = check_number("Player 1", player1_gamepiece)
         if gameboard[player1_input] != 'x' and gameboard[player1_input] != 'o':
-            gameboard[player1_input] = 'x'
+            gameboard[player1_input] = player1_gamepiece
             break;
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
     check_winner()
+    turn = "player_2"
 
 
 def player2_move():
+    global player2_gamepiece
+    global turn
     while True:
-        player2_input = check_number("Player 2", "o")
+        player2_input = check_number("Player 2", player2_gamepiece)
         if gameboard[player2_input] != 'x' and gameboard[player2_input] != 'o':
-            gameboard[player2_input] = 'o'
+            gameboard[player2_input] = player2_gamepiece
             break;
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
     check_winner()
+    turn = "player_1"
 
 # TODO add computer move logic
+def player2_computer_move():
+    global player2_gamepiece
+    global turn
+    while True:
+        player2_input = check_number("Player 2", player2_gamepiece)
+        if gameboard[player2_input] != 'x' and gameboard[player2_input] != 'o':
+            gameboard[player2_input] = player2_gamepiece
+            break;
+        else:
+            print "That spot is already taken!" + "\n"
+    display_game_board()
+    check_winner()
+    turn = "player_1"
 
 
 def check_winner():
@@ -184,7 +223,8 @@ def play_again():
         global gameboard
         gameboard = range(9)
         print "Great! Let's keep playing!"
-        play_game()
+        # TODO add conditional for mode 1 or 2
+        play_game_mode_2()
     else:
         print "Thanks for playing!"
         exit()
@@ -221,7 +261,15 @@ def test_range(user_int):
 
 def main():
     introduction()
-    play_game()
+
+    # TODO add conditional to play in mode 1 or 2 based on response in intro
+    global player_mode
+
+    if player_mode == 1:
+        print "You chose to play the computer"
+    else:
+        print "You chose to play another human"
+        play_game_mode_2()
 
 
 if __name__ == "__main__":
