@@ -153,6 +153,7 @@ def play_again():
         print "Thanks for playing!"
         exit()
 
+# error checking logic
 
 def check_number(player, symbol):
     passed = False
