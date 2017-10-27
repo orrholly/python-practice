@@ -1,3 +1,4 @@
+# coding=utf-8
 # **************************************************************
 # Program: tic_tac_toe.py
 # Author: Holly Orr
@@ -11,12 +12,17 @@
 # you have time.
 # **************************************************************
 
-# TODO add packages or modules for playing against computer
 import random
 
 # **************************************************************
 # GLOBAL VARIABLES
 # **************************************************************
+
+# set player mode to zero initially to be set to 1 or 2 by user
+player_mode = 0
+player1_gamepiece = ""
+player2_gamepiece = ""
+turn = ""
 
 # create gameboard list variable with 9 ints
 gameboard = range(9)
@@ -31,36 +37,73 @@ player2_score = 0
 # set global flag to keep or stop playing
 go_again = "y"
 
-player_mode = 0
-
 # **************************************************************
 # FUNCTIONS
 # **************************************************************
 
+# TODO: Change all player1 to playerx and all player2 to player0
+
 def introduction():
-    global player_mode
     print "\n"
     print "Let's play tic-tac-toe!"
-    print "Player 1 will be 'x' and Player 2 will be 'o'."
 
     # TODO: if adding logic to give option to play computer
-    # print "Welcome. Will you be playing in 1 or 2 player mode?"
-    player_mode = raw_input("Would you like to play in 1 or 2 player mode? Enter 1 or 2:" + "\n")
+    global player_mode
+    global player1_gamepiece
+    global player2_gamepiece
+    global turn
+    while not (player_mode == 1 or player_mode == 2):
+        player_mode = convert_to_number(raw_input("Welcome. Will you be playing in 1 or 2 player mode?: \n"))
+        player1_gamepiece, player2_gamepiece = input_player_piece()
+        turn = go_first()
+        if turn == "player_1":
+            print('Congrats Player 1. The ' + player1_gamepiece + ' \'s will go first.')
+        else:
+            print('Congrats Player 2. The ' + player2_gamepiece + ' \'s will go first.')
 
 
-def play_game():
+def input_player_piece():
+    piece = ''
+    while not (piece == 'x' or piece == 'o'):
+        print
+        piece = raw_input("Do you want to be x or o?" + "\n")
+    # if user chooses x, it will be listed first, if chooses o it will be listed first
+    if piece == 'x':
+        return ['x', 'o']
+    else:
+        return ['o', 'x']
+
+
+
+# TODO: Add random generator to see who goes first
+def go_first():
+    # 'flip the coin' for who goes first
+    if random.randint(0, 1) == 0:
+        return 'player_1'
+    else:
+        return 'player_2'
+
+
+def play_game_mode_1():
     global go_again
+    global turn
     display_game_board()
-    # TODO conditional player mode
-    if player_mode == "2":
-        while go_again.lower() == "y":
+    while go_again.lower() == "y":
+        if turn == 'player_1':
             player1_move()
+        else:
             player2_move()
-    elif player_mode == "1":
-        while go_again.lower() == "y":
+
+
+def play_game_mode_2():
+    global go_again
+    global turn
+    display_game_board()
+    while go_again.lower() == "y":
+        if turn == 'player_1':
             player1_move()
-            player_computer_move()
-        # TODO player_computer_move()
+        else:
+            player2_computer_move()
 
 def display_game_board():
     print "\n"
@@ -73,47 +116,49 @@ def display_game_board():
 
 
 def player1_move():
+    global player1_gamepiece
+    global turn
     while True:
-        player1_input = check_number("Player 1", "x")
+        player1_input = check_number("Player 1", player1_gamepiece)
         if gameboard[player1_input] != 'x' and gameboard[player1_input] != 'o':
-            gameboard[player1_input] = 'x'
+            gameboard[player1_input] = player1_gamepiece
             break;
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
     check_winner()
+    turn = "player_2"
 
 
 def player2_move():
+    global player2_gamepiece
+    global turn
     while True:
-        player2_input = check_number("Player 2", "o")
+        player2_input = check_number("Player 2", player2_gamepiece)
         if gameboard[player2_input] != 'x' and gameboard[player2_input] != 'o':
-            gameboard[player2_input] = 'o'
+            gameboard[player2_input] = player2_gamepiece
             break;
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
     check_winner()
+    turn = "player_1"
 
-def player_computer_move():
+# TODO add computer move logic
+def player2_computer_move():
+    global player2_gamepiece
+    global turn
     while True:
-       computer_random_choice()
-    display_game_board()
-    check_winner()
-
-
-def computer_random_choice():
-    computer_move = random.choice(gameboard)
-    good_move = False
-    while good_move is False:
-        if gameboard[computer_move] != 'x' and gameboard[computer_move] != 'o':
-            good_move = True
-            gameboard[computer_move] = 'o'
+        player2_input = check_number("Player 2", player2_gamepiece)
+        if gameboard[player2_input] != 'x' and gameboard[player2_input] != 'o':
+            gameboard[player2_input] = player2_gamepiece
             break;
         else:
             print "That spot is already taken!" + "\n"
     display_game_board()
     check_winner()
+    turn = "player_1"
+
 
 def check_winner():
     # winning rows
@@ -178,12 +223,12 @@ def play_again():
         global gameboard
         gameboard = range(9)
         print "Great! Let's keep playing!"
-        play_game()
+        # TODO add conditional for mode 1 or 2
+        play_game_mode_2()
     else:
         print "Thanks for playing!"
         exit()
 
-# error checking logic
 
 def check_number(player, symbol):
     passed = False
@@ -216,7 +261,15 @@ def test_range(user_int):
 
 def main():
     introduction()
-    play_game()
+
+    # TODO add conditional to play in mode 1 or 2 based on response in intro
+    global player_mode
+
+    if player_mode == 1:
+        print "You chose to play the computer"
+    else:
+        print "You chose to play another human"
+        play_game_mode_2()
 
 
 if __name__ == "__main__":
