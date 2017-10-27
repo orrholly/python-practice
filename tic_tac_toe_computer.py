@@ -85,6 +85,14 @@ def go_first():
     else:
         return 'player_2'
 
+def run_game_mode():
+    global player_mode
+    if player_mode == 1:
+        play_game_mode_1()
+    else:
+        play_game_mode_2()
+
+
 def play_game_mode_1():
     global go_again
     global turn
@@ -225,10 +233,10 @@ def play_again():
 
     if go_again.lower() == "y":
         global gameboard
+        global player_mode
         gameboard = range(9)
         print "Great! Let's keep playing!"
-        # TODO add conditional for mode 1 or 2
-        play_game_mode_2()
+        run_game_mode()
     else:
         print "Thanks for playing!"
         exit()
@@ -264,12 +272,8 @@ def test_range(user_int):
 
 
 def main():
-    global player_mode
     introduction()
-    if player_mode == 1:
-        play_game_mode_1()
-    else:
-        play_game_mode_2()
+    run_game_mode()
 
 
 if __name__ == "__main__":
